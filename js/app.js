@@ -40,19 +40,29 @@ ready.addEventListener("click", () => {
 
   // Computer Picks
   
-  let computerChoice = computerPick();
+  let computerChoice = computerPick().toUpperCase();
   computerMsg.innerHTML = computerChoice;
+  console.log(computerChoice);
 
   // Show player buttons - Player Pick
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
-      ready.style.visibility = "visible";
-      buttonContainer.style.visibility = "hidden";
+      
+      // Game Logic
 
+      let playerChoice = button.id.toUpperCase();
+      console.log(playerChoice);
 
+      if (rules == 1) {
+        if (playerChoice == computerChoice) {
+          console.log("Tie");
+        }
+      }
       
 
       // Game End
+      ready.style.visibility = "visible";
+      buttonContainer.style.visibility = "hidden";
       message.innerHTML = "";
       computerMsg.innerHTML = "";
     });
