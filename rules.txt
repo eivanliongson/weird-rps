@@ -1,0 +1,4 @@
+Standard Rule:
+Rock > Paper
+Paper > Scissors
+Scissors > Rock
