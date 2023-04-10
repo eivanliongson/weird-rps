@@ -2,7 +2,8 @@
 const weapons = ["Rock", "Paper", "Scissors"];
 let computerScore = 0;
 let playerScore = 0;
-let round = 0;
+let round = 1;
+let numOfTies = 0;
 let playerChoice;
 let computerChoice;
 let rule;
@@ -18,6 +19,7 @@ let scissorsButton = document.querySelector("#scissors");
 document.querySelector("#computerScore").innerHTML = `Computer Score: ${computerScore}`;
 document.querySelector("#playerScore").innerHTML = `Player Score: ${playerScore}`;
 document.querySelector("#round").innerHTML = `Round: ${round}`;
+document.querySelector("#ties").innerHTML = `Ties: ${numOfTies}`
 
 
 // Functions
@@ -29,6 +31,7 @@ function updateScreen(newPick) {
   document.querySelector("#computerScore").innerHTML = `Computer Score: ${computerScore}`;
   document.querySelector("#playerScore").innerHTML = `Player Score: ${playerScore}`; // Update Score
   document.querySelector("#round").innerHTML = `Round: ${round}`;
+  document.querySelector("#ties").innerHTML = `Ties: ${numOfTies}`
 
   // Update new computer pick
   computerMsg.innerHTML = `I will choose ${newPick}. :)`;
@@ -54,6 +57,7 @@ function playRound(playerChoice, computerChoice) {
   if (rule == 1) {
     if (playerChoice == computerChoice) {
       console.log("Tie");
+      numOfTies += 1;
     } else if (
       (playerChoice == "Rock" && computerChoice == "Scissors") ||
       (playerChoice == "Scissors" && computerChoice == "Paper") ||
