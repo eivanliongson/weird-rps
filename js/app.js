@@ -2,6 +2,7 @@
 const weapons = ["Rock", "Paper", "Scissors"];
 let computerScore = 0;
 let playerScore = 0;
+let round = 0;
 let playerChoice;
 let computerChoice;
 let rule;
@@ -14,9 +15,10 @@ let buttonContainer = document.querySelector(".button.container");
 let rockButton = document.querySelector("#rock");
 let paperButton = document.querySelector("#paper");
 let scissorsButton = document.querySelector("#scissors");
-
 document.querySelector("#computerScore").innerHTML = `Computer Score: ${computerScore}`;
 document.querySelector("#playerScore").innerHTML = `Player Score: ${playerScore}`;
+document.querySelector("#round").innerHTML = `Round: ${round}`;
+
 
 // Functions
 function computerPick() {
@@ -26,6 +28,7 @@ function computerPick() {
 function updateScreen(newPick) {
   document.querySelector("#computerScore").innerHTML = `Computer Score: ${computerScore}`;
   document.querySelector("#playerScore").innerHTML = `Player Score: ${playerScore}`; // Update Score
+  document.querySelector("#round").innerHTML = `Round: ${round}`;
 
   // Update new computer pick
   computerMsg.innerHTML = `I will choose ${newPick}. :)`;
@@ -45,7 +48,6 @@ function showRules(ruleNumber) {
 
 function playRound(playerChoice, computerChoice) {
   console.log(`Rule Number: ${rule}`);
-
   console.log(`Player: ${playerChoice}`);
   console.log(`Computer: ${computerChoice}`);
 
@@ -62,6 +64,8 @@ function playRound(playerChoice, computerChoice) {
       computerScore += 1;
     }
   }
+
+  round += 1;
 }
 
 // Game Proper
