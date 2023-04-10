@@ -2,69 +2,111 @@
 const weapons = ["Rock", "Paper", "Scissors"];
 let computerScore = 0;
 let playerScore = 0;
-
-let rules = 1;
+let playerChoice;
+let computerChoice;
+let rule;
 
 // DOM Elements
 let computerMsg = document.querySelector(".computer-msg");
 let message = document.querySelector(".message.container");
 let ready = document.querySelector("#readyButton");
-let buttons = document.querySelectorAll(".buttons");
 let buttonContainer = document.querySelector(".button.container");
+let rockButton = document.querySelector("#rock");
+let paperButton = document.querySelector("#paper");
+let scissorsButton = document.querySelector("#scissors");
+
+document.querySelector("#computerScore").innerHTML = `Computer Score: ${computerScore}`;
+document.querySelector("#playerScore").innerHTML = `Player Score: ${playerScore}`;
 
 // Functions
 function computerPick() {
   return weapons[Math.floor(Math.random() * weapons.length)];
 }
 
+function updateScreen(newPick) {
+  document.querySelector("#computerScore").innerHTML = `Computer Score: ${computerScore}`;
+  document.querySelector("#playerScore").innerHTML = `Player Score: ${playerScore}`; // Update Score
+
+  // Update new computer pick
+  computerMsg.innerHTML = `I will choose ${newPick}. :)`;
+}
+
+function showRules(ruleNumber) {
+  switch (rule) {
+    case 1:
+      message.innerHTML = `PAPER BEATS ROCK <br> ROCK BEATS SCISSORS <br>  SCISSORS BEATS PAPER`; // Standard Rules
+      break;
+
+    default:
+      console.log("Something is wrong...");
+      break;
+  }
+}
+
+function playRound(playerChoice, computerChoice) {
+  console.log(`Rule Number: ${rule}`);
+
+  console.log(`Player: ${playerChoice}`);
+  console.log(`Computer: ${computerChoice}`);
+
+  if (rule == 1) {
+    if (playerChoice == computerChoice) {
+      console.log("Tie");
+    } else if (
+      (playerChoice == "Rock" && computerChoice == "Scissors") ||
+      (playerChoice == "Scissors" && computerChoice == "Paper") ||
+      (playerChoice == "Paper" && computerChoice == "Rock")
+    ) {
+      playerScore += 1;
+    } else {
+      computerScore += 1;
+    }
+  }
+}
+
 // Game Proper
 buttonContainer.style.visibility = "hidden"; // Hides player buttons by default
-document.querySelector("#computerScore").innerHTML = `Computer Score ${computerScore}`;
 
-// Game Start
+// Initial Round Prep
 ready.addEventListener("click", () => {
   ready.style.visibility = "hidden";
   buttonContainer.style.visibility = "visible";
 
-  switch (rules) {
-    case 1:
-      message.innerHTML = `PAPER BEATS ROCK \n ROCK BEATS SCISSORS \n  SCISSORS BEATS PAPER`; // Standard Rules
-      break;
+  // Initial Rules
+  rule = 1;
+  showRules(rule);
 
-    case 2:
-      message.innerHTML = `BLA`;
+  // Computer Picks for Initial Round
+  computerChoice = computerPick();
+  computerMsg.innerHTML = `I will choose ${computerChoice}.`;
 
-    default:
-      break;
-  }
+  // End Initial Round Prep
 
-  // Computer Picks
-  
-  let computerChoice = computerPick().toUpperCase();
-  computerMsg.innerHTML = computerChoice;
-  console.log(computerChoice);
+  // Player Picks and Start Game
+  rockButton.addEventListener("click", () => {
+    playerChoice = "Rock";
+    playRound(playerChoice, computerChoice);
 
-  // Show player buttons - Player Pick
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      
-      // Game Logic
+    // End Round
+    computerChoice = computerPick();
+    updateScreen(computerChoice);
+  });
 
-      let playerChoice = button.id.toUpperCase();
-      console.log(playerChoice);
+  paperButton.addEventListener("click", () => {
+    playerChoice = "Paper";
+    playRound(playerChoice, computerChoice);
 
-      if (rules == 1) {
-        if (playerChoice == computerChoice) {
-          console.log("Tie");
-        }
-      }
-      
+    // End Round
+    computerChoice = computerPick();
+    updateScreen(computerChoice);
+  });
 
-      // Game End
-      ready.style.visibility = "visible";
-      buttonContainer.style.visibility = "hidden";
-      message.innerHTML = "";
-      computerMsg.innerHTML = "";
-    });
+  scissorsButton.addEventListener("click", () => {
+    playerChoice = "Scissors";
+    playRound(playerChoice, computerChoice);
+
+    // End Round
+    computerChoice = computerPick();
+    updateScreen(computerChoice);
   });
 });

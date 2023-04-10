@@ -23,6 +23,12 @@ body {
   gap: 12px;
 }
 
+.scoreboard {
+  display: flex;
+  justify-content: space-evenly;
+  width: 50%;
+}
+
 .computer {
   font-size: 5rem;
 }
@@ -42,6 +48,6 @@ body {
 
 .message.container {
   width: 50%;
-  /* height: 100px; */
-  font-size: 4rem;
+  text-align: center;
+  font-size: 2rem;
 }
