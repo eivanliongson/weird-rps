@@ -49,19 +49,19 @@ function showRules(ruleNumber) {
   }
 }
 
-function playRound(playerChoice, computerChoice) {
+function playRound(p, c) {
   console.log(`Rule Number: ${rule}`);
-  console.log(`Player: ${playerChoice}`);
-  console.log(`Computer: ${computerChoice}`);
+  console.log(`Player: ${p}`);
+  console.log(`Computer: ${c}`);
 
   if (rule == 1) {
-    if (playerChoice == computerChoice) {
+    if (p == c) {
       console.log("Tie");
       numOfTies += 1;
     } else if (
-      (playerChoice == "Rock" && computerChoice == "Scissors") ||
-      (playerChoice == "Scissors" && computerChoice == "Paper") ||
-      (playerChoice == "Paper" && computerChoice == "Rock")
+      (p == "Rock" && c == "Scissors") ||
+      (p == "Scissors" && c == "Paper") ||
+      (p == "Paper" && c == "Rock")
     ) {
       playerScore += 1;
     } else {
