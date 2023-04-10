@@ -69,7 +69,10 @@ function playRound(playerChoice, computerChoice) {
     }
   }
 
+  // Round End
   round += 1;
+  computerChoice = computerPick();
+  updateScreen(computerChoice);
 }
 
 // Game Proper
@@ -94,27 +97,16 @@ ready.addEventListener("click", () => {
   rockButton.addEventListener("click", () => {
     playerChoice = "Rock";
     playRound(playerChoice, computerChoice);
-
-    // End Round
-    computerChoice = computerPick();
-    updateScreen(computerChoice);
+    
   });
 
   paperButton.addEventListener("click", () => {
     playerChoice = "Paper";
     playRound(playerChoice, computerChoice);
-
-    // End Round
-    computerChoice = computerPick();
-    updateScreen(computerChoice);
   });
 
   scissorsButton.addEventListener("click", () => {
     playerChoice = "Scissors";
     playRound(playerChoice, computerChoice);
-
-    // End Round
-    computerChoice = computerPick();
-    updateScreen(computerChoice);
   });
 });
