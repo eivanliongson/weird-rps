@@ -73,6 +73,9 @@ function playRound(p, c) {
   round += 1;
   computerChoice = computerPick();
   updateScreen(computerChoice);
+
+  showRules();
+  setTimeout(()=> {message.innerHTML = ""}, 3000)
 }
 
 // Game Proper
@@ -83,9 +86,10 @@ ready.addEventListener("click", () => {
   ready.style.visibility = "hidden";
   buttonContainer.style.visibility = "visible";
 
-  // Initial Rules
+  // Initial Rule
   rule = 1;
   showRules(rule);
+  setTimeout(()=> {message.innerHTML = ""}, 3000) // Hides the rules of the round after 3s
 
   // Computer Picks for Initial Round
   computerChoice = computerPick();
