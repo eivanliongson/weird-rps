@@ -2,7 +2,7 @@
 const weapons = ["Rock", "Paper", "Scissors"];
 let computerScore = 0;
 let playerScore = 0;
-let round = 0;
+let round = 1;
 let playerChoice;
 let computerChoice;
 let rule;
@@ -26,6 +26,7 @@ function computerPick() {
 }
 
 function updateScreen(newPick) {
+  round += 1;
   document.querySelector("#computerScore").innerHTML = `Computer Score: ${computerScore}`;
   document.querySelector("#playerScore").innerHTML = `Player Score: ${playerScore}`; // Update Score
   document.querySelector("#round").innerHTML = `Round: ${round}`;
@@ -65,7 +66,10 @@ function playRound(playerChoice, computerChoice) {
     }
   }
 
-  round += 1;
+
+  computerChoice = computerPick();
+  updateScreen(computerChoice);
+
 }
 
 // Game Proper
@@ -79,7 +83,6 @@ ready.addEventListener("click", () => {
   // Initial Rules
   rule = 1;
   showRules(rule);
-
   // Computer Picks for Initial Round
   computerChoice = computerPick();
   computerMsg.innerHTML = `I will choose ${computerChoice}.`;
@@ -90,27 +93,15 @@ ready.addEventListener("click", () => {
   rockButton.addEventListener("click", () => {
     playerChoice = "Rock";
     playRound(playerChoice, computerChoice);
-
-    // End Round
-    computerChoice = computerPick();
-    updateScreen(computerChoice);
   });
 
   paperButton.addEventListener("click", () => {
     playerChoice = "Paper";
     playRound(playerChoice, computerChoice);
-
-    // End Round
-    computerChoice = computerPick();
-    updateScreen(computerChoice);
   });
 
   scissorsButton.addEventListener("click", () => {
     playerChoice = "Scissors";
     playRound(playerChoice, computerChoice);
-
-    // End Round
-    computerChoice = computerPick();
-    updateScreen(computerChoice);
   });
 });
