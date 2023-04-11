@@ -26,7 +26,7 @@ body {
 .scoreboard {
   display: flex;
   justify-content: space-evenly;
-  width: 50%;
+  width: 80%;
 }
 
 .computer {

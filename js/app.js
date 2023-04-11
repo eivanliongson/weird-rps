@@ -1,5 +1,5 @@
 // Set Variables
-const weapons = ["Rock", "Paper", "Scissors"];
+const weapons = ["Rock", "Paper", "Scissors", "Lizard", "Spock"];
 let computerScore = 0;
 let playerScore = 0;
 let round = 1;
@@ -16,6 +16,9 @@ let buttonContainer = document.querySelector(".button.container");
 let rockButton = document.querySelector("#rock");
 let paperButton = document.querySelector("#paper");
 let scissorsButton = document.querySelector("#scissors");
+let lizardButton = document.querySelector("#lizard");
+let spockButton = document.querySelector("#spock");
+
 document.querySelector("#computerScore").innerHTML = `Computer Score: ${computerScore}`;
 document.querySelector("#playerScore").innerHTML = `Player Score: ${playerScore}`;
 document.querySelector("#round").innerHTML = `Round: ${round}`;
@@ -59,9 +62,11 @@ function playRound(p, c) {
       console.log("Tie");
       numOfTies += 1;
     } else if (
-      (p == "Rock" && c == "Scissors") ||
-      (p == "Scissors" && c == "Paper") ||
-      (p == "Paper" && c == "Rock")
+      (p == "Rock" && (c == "Scissors" || c == "Lizard")) ||
+      (p == "Paper" && (c == "Rock" || c == "Spock")) ||
+      (p == "Scissors" && (c == "Paper" || c == "Lizard")) ||
+      (p == "Lizard" && (c == "Paper" || c == "Spock")) ||
+      (p == "Spock" && (c == "Scissors" || c == "Rock"))
     ) {
       playerScore += 1;
     } else {
@@ -75,7 +80,7 @@ function playRound(p, c) {
   updateScreen(computerChoice);
 
   showRules();
-  setTimeout(()=> {message.innerHTML = ""}, 3000)
+  setTimeout(() => { message.innerHTML = "" }, 3000)
 }
 
 // Game Proper
@@ -89,7 +94,7 @@ ready.addEventListener("click", () => {
   // Initial Rule
   rule = 1;
   showRules(rule);
-  setTimeout(()=> {message.innerHTML = ""}, 3000) // Hides the rules of the round after 3s
+  setTimeout(() => { message.innerHTML = "" }, 3000) // Hides the rules of the round after 3s
 
   // Computer Picks for Initial Round
   computerChoice = computerPick();
@@ -101,7 +106,7 @@ ready.addEventListener("click", () => {
   rockButton.addEventListener("click", () => {
     playerChoice = "Rock";
     playRound(playerChoice, computerChoice);
-    
+
   });
 
   paperButton.addEventListener("click", () => {
@@ -111,6 +116,16 @@ ready.addEventListener("click", () => {
 
   scissorsButton.addEventListener("click", () => {
     playerChoice = "Scissors";
+    playRound(playerChoice, computerChoice);
+  });
+
+  lizardButton.addEventListener("click", () => {
+    playerChoice = "Lizard";
+    playRound(playerChoice, computerChoice);
+  });
+
+  spockButton.addEventListener("click", () => {
+    playerChoice = "Spock";
     playRound(playerChoice, computerChoice);
   });
 });
