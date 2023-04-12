@@ -26,6 +26,7 @@ document.querySelector("#ties").innerHTML = `Ties: ${numOfTies}`
 
 
 // Functions
+
 function computerPick() {
   return weapons[Math.floor(Math.random() * weapons.length)];
 }
@@ -42,13 +43,39 @@ function updateScreen(newPick) {
 
 function showRules(ruleNumber) {
   switch (rule) {
-    case 1:
-      message.innerHTML = `PAPER BEATS ROCK <br> ROCK BEATS SCISSORS <br>  SCISSORS BEATS PAPER`; // Standard Rules
+    case 1: // Standard Rule
+      message.innerHTML =
+        `
+      ROUND RULES: STANDARD MODE
+      <br>
+      Rock beats (Scissors or Lizard)
+      <br> 
+      Paper beats (Rock or Spock)
+      <br>  
+      Scissors beats (Paper or Lizard)
+      <br>
+      Lizard beats (Paper or Spock)
+      <br>
+      Spock beats (Scissors or Rock)
+      `;
       break;
 
-    default:
-      console.log("Something is wrong...");
-      break;
+    case 2: // Weird Rule made by me lol
+      message.innerHTML =
+        `
+      ROUND RULES: WEIRD  MODE
+      <br>
+      Rock beats (Paper or Spock)
+      <br> 
+      Paper beats (Scissors or Lizard)
+      <br>  
+      Scissors beats (Rock or Spock)
+      <br>
+      Lizard beats (Scissors or Rock)
+      <br>
+      Spock beats (Paper or Lizard)
+      `;
+
   }
 }
 
@@ -57,11 +84,13 @@ function playRound(p, c) {
   console.log(`Player: ${p}`);
   console.log(`Computer: ${c}`);
 
-  if (rule == 1) {
-    if (p == c) {
-      console.log("Tie");
-      numOfTies += 1;
-    } else if (
+  if (p == c) {
+    console.log("Tie");
+    numOfTies += 1;
+  }
+
+  else if (rule == 1) {
+    if (
       (p == "Rock" && (c == "Scissors" || c == "Lizard")) ||
       (p == "Paper" && (c == "Rock" || c == "Spock")) ||
       (p == "Scissors" && (c == "Paper" || c == "Lizard")) ||
@@ -72,18 +101,33 @@ function playRound(p, c) {
     } else {
       computerScore += 1;
     }
+  } else if (rule == 2) {
+    if (
+      (p == "Rock" && (c == "Paper" || c == "Spock")) ||
+      (p == "Paper" && (c == "Scissors" || c == "Lizard")) ||
+      (p == "Scissors" && (c == "Rock" || c == "Spock")) ||
+      (p == "Lizard" && (c == "Scissors" || c == "Rock")) ||
+      (p == "Spock" && (c == "Paper" || c == "Lizard"))
+    ) {
+      playerScore += 1;
+    } else {
+      computerScore += 1;
+    }
   }
 
   // Round End
   round += 1;
+  
+  // Sheldon picks
   computerChoice = computerPick();
   updateScreen(computerChoice);
 
+  // Choose new rule
   showRules();
   setTimeout(() => { message.innerHTML = "" }, 3000)
 }
 
-// Game Proper
+// Game Starts here
 buttonContainer.style.visibility = "hidden"; // Hides player buttons by default
 
 // Initial Round Prep
@@ -92,7 +136,7 @@ ready.addEventListener("click", () => {
   buttonContainer.style.visibility = "visible";
 
   // Initial Rule
-  rule = 1;
+  rule = 2;
   showRules(rule);
   setTimeout(() => { message.innerHTML = "" }, 3000) // Hides the rules of the round after 3s
 
