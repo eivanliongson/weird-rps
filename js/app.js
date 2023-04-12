@@ -1,15 +1,15 @@
 // Set Variables
 const weapons = ["Rock", "Paper", "Scissors", "Lizard", "Spock"];
-let computerScore = 0;
+let sheldonScore = 0;
 let playerScore = 0;
 let round = 1;
 let numOfTies = 0;
 let playerChoice;
-let computerChoice;
+let sheldonChoice;
 let rule;
 
 // DOM Elements
-let computerMsg = document.querySelector(".computer-msg");
+let sheldonMsg = document.querySelector(".sheldon-msg");
 let message = document.querySelector(".message.container");
 let ready = document.querySelector("#readyButton");
 let buttonContainer = document.querySelector(".button.container");
@@ -19,7 +19,7 @@ let scissorsButton = document.querySelector("#scissors");
 let lizardButton = document.querySelector("#lizard");
 let spockButton = document.querySelector("#spock");
 
-document.querySelector("#computerScore").innerHTML = `Computer Score: ${computerScore}`;
+document.querySelector("#sheldonScore").innerHTML = `Sheldon Score: ${sheldonScore}`;
 document.querySelector("#playerScore").innerHTML = `Player Score: ${playerScore}`;
 document.querySelector("#round").innerHTML = `Round: ${round}`;
 document.querySelector("#ties").innerHTML = `Ties: ${numOfTies}`
@@ -27,25 +27,30 @@ document.querySelector("#ties").innerHTML = `Ties: ${numOfTies}`
 
 // Functions
 
-function computerPick() {
+function sheldonPicks() {
   return weapons[Math.floor(Math.random() * weapons.length)];
 }
 
+function chooseNewRule() {
+  return Math.floor((Math.random() * 3) + 1);
+}
+
 function updateScreen(newPick) {
-  document.querySelector("#computerScore").innerHTML = `Computer Score: ${computerScore}`;
+  document.querySelector("#sheldonScore").innerHTML = `Sheldon Score: ${sheldonScore}`;
   document.querySelector("#playerScore").innerHTML = `Player Score: ${playerScore}`; // Update Score
   document.querySelector("#round").innerHTML = `Round: ${round}`;
   document.querySelector("#ties").innerHTML = `Ties: ${numOfTies}`
 
-  // Update new computer pick
-  computerMsg.innerHTML = `I will choose ${newPick}. :)`;
+  // Update new Sheldon pick
+  sheldonMsg.innerHTML = `I will choose ${newPick}. :)`;
 }
 
 function showRules(ruleNumber) {
+  console.log(`Rule Number: ${rule}`);
   switch (rule) {
     case 1: // Standard Rule
       message.innerHTML =
-        `
+      `
       ROUND RULES: STANDARD MODE
       <br>
       Rock beats (Scissors or Lizard)
@@ -62,7 +67,7 @@ function showRules(ruleNumber) {
 
     case 2: // Weird Rule made by me lol
       message.innerHTML =
-        `
+      `
       ROUND RULES: WEIRD  MODE
       <br>
       Rock beats (Paper or Spock)
@@ -75,14 +80,30 @@ function showRules(ruleNumber) {
       <br>
       Spock beats (Paper or Lizard)
       `;
+      break;
 
+    case 3: // Handicap in favor of Sheldon
+      message.innerHTML =
+      `
+      ROUND RULES: HANDICAP
+      <br>
+      Rock ONLY beats Scissors
+      <br> 
+      Paper ONLY beats Lizard
+      <br>  
+      Scissors ONLY beats Paper
+      <br>
+      Lizard ONLY beats Spock
+      <br>
+      Spock ONLY beats Rock
+      `;
+      break;
   }
 }
 
 function playRound(p, c) {
-  console.log(`Rule Number: ${rule}`);
   console.log(`Player: ${p}`);
-  console.log(`Computer: ${c}`);
+  console.log(`Sheldon: ${c}`);
 
   if (p == c) {
     console.log("Tie");
@@ -99,7 +120,7 @@ function playRound(p, c) {
     ) {
       playerScore += 1;
     } else {
-      computerScore += 1;
+      sheldonScore += 1;
     }
   } else if (rule == 2) {
     if (
@@ -111,18 +132,31 @@ function playRound(p, c) {
     ) {
       playerScore += 1;
     } else {
-      computerScore += 1;
+      sheldonScore += 1;
+    }
+  } else if (rule == 3) {
+    if (
+      (p == "Rock" && c == "Scissors") ||
+      (p == "Paper" && c == "Lizard") ||
+      (p == "Scissors" && c == "Paper") ||
+      (p == "Lizard" && c == "Spock") ||
+      (p == "Spock" && c == "Rock")
+    ) {
+      playerScore += 1;
+    } else {
+      sheldonScore += 1;
     }
   }
 
   // Round End
   round += 1;
-  
+
   // Sheldon picks
-  computerChoice = computerPick();
-  updateScreen(computerChoice);
+  sheldonChoice = sheldonPicks();
+  updateScreen(sheldonChoice);
 
   // Choose new rule
+  rule = chooseNewRule();
   showRules();
   setTimeout(() => { message.innerHTML = "" }, 3000)
 }
@@ -135,41 +169,41 @@ ready.addEventListener("click", () => {
   ready.style.visibility = "hidden";
   buttonContainer.style.visibility = "visible";
 
-  // Initial Rule
-  rule = 2;
+  // Initial Rules
+  rule = 1;
   showRules(rule);
   setTimeout(() => { message.innerHTML = "" }, 3000) // Hides the rules of the round after 3s
 
-  // Computer Picks for Initial Round
-  computerChoice = computerPick();
-  computerMsg.innerHTML = `I will choose ${computerChoice}.`;
+  // Sheldon Picks for Initial Round
+  sheldonChoice = sheldonPicks();
+  sheldonMsg.innerHTML = `I will choose ${sheldonChoice}.`;
 
   // End Initial Round Prep
 
   // Player Picks and Start Game
   rockButton.addEventListener("click", () => {
     playerChoice = "Rock";
-    playRound(playerChoice, computerChoice);
+    playRound(playerChoice, sheldonChoice);
 
   });
 
   paperButton.addEventListener("click", () => {
     playerChoice = "Paper";
-    playRound(playerChoice, computerChoice);
+    playRound(playerChoice, sheldonChoice);
   });
 
   scissorsButton.addEventListener("click", () => {
     playerChoice = "Scissors";
-    playRound(playerChoice, computerChoice);
+    playRound(playerChoice, sheldonChoice);
   });
 
   lizardButton.addEventListener("click", () => {
     playerChoice = "Lizard";
-    playRound(playerChoice, computerChoice);
+    playRound(playerChoice, sheldonChoice);
   });
 
   spockButton.addEventListener("click", () => {
     playerChoice = "Spock";
-    playRound(playerChoice, computerChoice);
+    playRound(playerChoice, sheldonChoice);
   });
 });
