@@ -1,0 +1,27 @@
+Rule 1 - Standard Mode
+
+Rock beats (Scissors or Lizard)
+Paper beats (Rock or Spock)
+Scissors beats (Paper or Lizard)
+Lizard beats (Paper or Spock)
+Spock beats (Scissors or Rock)
+
+
+
+Rule 2 - Weird Mode
+
+Rock beats (Paper or Spock)
+Paper beats (Scissors or Lizard)
+Scissors beats (Rock or Spock)
+Lizard beats (Scissors or Rock)
+Spock beats (Paper and Lizard)
+
+
+
+Rule 3 - Handicap
+
+Rock ONLY beats Scissors
+Paper ONLY beats Lizard
+Scissors ONLY beats Paper
+Lizard ONLY beats Spock
+Spock ONLY beats Rock
