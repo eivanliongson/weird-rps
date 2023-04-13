@@ -56,6 +56,17 @@ body {
   font-size: 1.25rem;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
+.ready-button {
+  height: 50px;
+  width: 100px;
+  border-radius: 2em;
+  font-weight: bolder;
+}
+
 
 .buttons {
   font-size: 4rem;
